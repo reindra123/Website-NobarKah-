@@ -933,46 +933,192 @@ body::before {
 /* ─────────────────────────────────────────────────────────────
    RESPONSIF
 ───────────────────────────────────────────────────────────── */
+
+/* ── Tablet landscape (≤ 1024px) ───────────────────────────── */
 @media (max-width: 1024px) {
-    .main-nav { display: none; }
+    .main-nav  { display: none; }
     .hamburger { display: flex; }
-    .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+    .footer-inner  { grid-template-columns: 1fr 1fr; gap: 2rem; }
     .featured-grid { grid-template-columns: 1fr; }
 
-    /* Hero vertikal di tablet */
+    /* Hero: tumpuk vertikal di tablet */
     .hero-inner {
-        flex-direction: column-reverse; text-align: center;
-        align-items: center; padding-top: 140px; padding-bottom: 60px;
+        flex-direction: column-reverse;
+        text-align: center;
+        align-items: center;
+        padding-top: 120px;
+        padding-bottom: 60px;
+        gap: 2rem;
     }
-    .hero-content { max-width: 100%; }
-    .hero-desc, .hero-actions, .hero-badge, .hero-meta { margin-left: auto; margin-right: auto; justify-content: center; }
-    .hero-oval  { width: clamp(240px, 70vw, 380px); }
-    .hero-visual { flex: 0 0 auto; }
+    .hero-content { max-width: 100%; flex: unset; }
+    .hero-visual  { flex: 0 0 auto; width: 100%; }
+    .hero-desc, .hero-actions, .hero-badge, .hero-meta {
+        margin-left: auto; margin-right: auto;
+        justify-content: center;
+    }
+    .hero-oval { width: clamp(240px, 65vw, 400px); }
+
+    /* Overlay hero tidak terlalu gelap di tablet */
+    .hero-overlay {
+        background: linear-gradient(to bottom, rgba(7,15,43,0.75) 0%, rgba(7,15,43,0.5) 100%);
+    }
+
+    /* Section header: stack jika sempit */
+    .section-header { align-items: flex-start; gap: 0.5rem; }
 }
 
+/* ── Tablet portrait / Mobile besar (≤ 768px) ───────────────── */
 @media (max-width: 768px) {
-    :root { --pad-x: 1.5rem; --pad-y: 3rem; }
+    :root {
+        --pad-x: 1.25rem;
+        --pad-y: 3rem;
+    }
 
-    .film-grid     { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-    .browse-grid   { grid-template-columns: repeat(2, 1fr); }
-    .genres-grid   { grid-template-columns: repeat(2, 1fr); }
-    .pricing-grid  { grid-template-columns: 1fr; }
-    .footer-inner  { grid-template-columns: 1fr; gap: 2rem; }
+    /* Header */
+    .header-inner { padding: 1rem var(--pad-x); gap: 1rem; }
+    .logo { font-size: 1.4rem; letter-spacing: 3px; }
 
-    .modal-box { padding: 2rem 1.5rem; }
-    .detail-hero { width: calc(100% + 3rem); margin: -2rem -1.5rem 1.5rem; }
-    .detail-actions { flex-direction: column; }
-    .detail-actions button, .detail-actions .btn-primary { width: 100%; text-align: center; justify-content: center; }
+    /* Search — jangan sampai dorong elemen lain */
+    .search-wrapper.open .search-input { width: 160px; }
 
+    /* Grids */
+    .film-grid    { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .browse-grid  { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .genres-grid  { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+
+    /* Hero */
+    .hero-inner   { padding-top: 100px; padding-bottom: 40px; }
+    .hero-oval    { width: clamp(200px, 80vw, 340px); }
     .hero-actions { flex-direction: column; align-items: center; }
-    .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-    .section-title { font-size: 1.2rem; }
+    .btn-primary, .btn-secondary {
+        width: 100%; max-width: 320px;
+        justify-content: center;
+    }
+
+    /* Film section */
+    .film-section   { padding: 2.5rem var(--pad-x); }
+    .section-title  { font-size: clamp(1rem, 4vw, 1.3rem); letter-spacing: 2.5px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; margin-bottom: 1.25rem; }
+
+    /* Filter bar — horizontal scroll di mobile */
+    .filter-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.5rem;
+        gap: 0.5rem;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn { white-space: nowrap; flex-shrink: 0; }
+
+    /* Modal */
+    .modal-backdrop { padding: 1rem; align-items: flex-end; }
+    .modal-box {
+        padding: 2rem 1.25rem 1.5rem;
+        border-radius: var(--r-lg) var(--r-lg) 0 0;
+        max-width: 100%;
+        max-height: 92vh;
+    }
+    .detail-hero {
+        width: calc(100% + 2.5rem);
+        margin: -2rem -1.25rem 1.5rem;
+    }
+    .modal-detail-box { border-radius: var(--r-lg) var(--r-lg) 0 0; max-width: 100%; }
+    .modal-player-box { padding: 0.75rem; max-width: 100%; }
+    .detail-actions { flex-direction: column; }
+    .detail-actions button,
+    .detail-actions .btn-primary { width: 100%; text-align: center; justify-content: center; }
+    .detail-title { font-size: 1.5rem; letter-spacing: 2.5px; }
+
+    /* Footer */
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .footer-social { flex-wrap: wrap; gap: 0.5rem; }
+
+    /* Toast — pastikan tidak overflow */
+    .toast {
+        white-space: normal;
+        text-align: center;
+        max-width: calc(100vw - 2rem);
+        width: max-content;
+    }
+
+    /* Genre card lebih ramping */
+    .genre-card { height: 110px; padding: 1rem; }
+    .genre-name { font-size: 0.9rem; letter-spacing: 1.5px; }
+
+    /* Empty state */
+    .empty-state { padding: 3rem 1.5rem; }
+    .empty-state h3 { font-size: 1.4rem; letter-spacing: 2.5px; }
+
+    /* Pricing */
+    .pricing-grid { max-width: 100%; }
+    .pricing-card { padding: 2rem 1.5rem; }
 }
 
+/* ── Mobile kecil (≤ 480px) ─────────────────────────────────── */
 @media (max-width: 480px) {
-    .film-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-    .search-wrapper.open .search-input { width: 150px; }
-    .hero-oval { width: min(270px, 80vw); }
+    :root { --pad-x: 1rem; }
+
+    /* Header lebih kompak */
+    .logo { font-size: 1.2rem; letter-spacing: 2px; }
+    .btn-login { padding: 0.45rem 0.9rem; font-size: 0.7rem; letter-spacing: 1.5px; }
+    .search-wrapper.open .search-input { width: 130px; }
+
+    /* Grid film — 2 kolom tetap tapi celah lebih kecil */
+    .film-grid  { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .browse-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .genres-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+
+    /* Film card lebih kecil */
+    .film-info  { padding: 0.65rem; }
+    .film-title { font-size: 0.82rem; letter-spacing: 1px; }
+    .film-genre { font-size: 0.6rem; }
+    .film-rating { font-size: 0.68rem; }
+
+    /* Hero */
+    .hero-oval  { width: min(260px, 85vw); }
+    .hero-inner { padding-top: 90px; gap: 1.5rem; }
+
+    /* Section */
+    .film-section { padding: 2rem var(--pad-x); }
+
+    /* Genre */
+    .genre-card  { height: 95px; padding: 0.85rem; }
+    .genre-name  { font-size: 0.8rem; }
+    .genre-emoji { font-size: 1.8rem; }
+
+    /* Featured card */
+    .featured-card-content h3 { font-size: 1rem; letter-spacing: 2px; }
+
+    /* Modal */
+    .modal-box { padding: 1.75rem 1rem 1.25rem; }
+    .modal-title { font-size: 1.2rem; letter-spacing: 2.5px; }
+    .detail-hero { width: calc(100% + 2rem); margin: -1.75rem -1rem 1.25rem; }
+
+    /* Pricing */
+    .pricing-price { font-size: 2.2rem; }
+}
+
+/* ── Mobile sangat kecil (≤ 360px) ─────────────────────────── */
+@media (max-width: 360px) {
+    :root { --pad-x: 0.85rem; }
+
+    .logo { font-size: 1.1rem; }
+    .film-grid, .browse-grid, .genres-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+
+    /* Cegah hero overflow */
+    .hero-oval  { width: min(230px, 90vw); }
+    .hero-title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+
+    /* Search tidak mendorong hamburger keluar */
+    .search-wrapper.open .search-input { width: 100px; }
+
+    /* Footer bottom stack */
+    .footer-bottom { gap: 0.75rem; }
 }
 
 .footer-social {
